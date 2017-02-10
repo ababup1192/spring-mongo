@@ -31,9 +31,9 @@ public class PersonTest {
     private static final String I_NAME2 = "Chocolate";
     private static final String I_NAME3 = "Potato";
 
-    private static final Date DATE1 = Date.from(LocalDate.of(2016, 4, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-    private static final Date DATE2 = Date.from(LocalDate.of(2016, 6, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-    private static final Date DATE3 = Date.from(LocalDate.of(2016, 10, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    private static final Date DATE1 = createDate(2016, 4, 1);
+    private static final Date DATE2 = createDate(2016, 6, 1);
+    private static final Date DATE3 = createDate(2016, 10, 1);
 
     private static final LocalDate SEARCH_FROM_DATE = LocalDate.of(2016, 5, 1);
     private static final LocalDate SEARCH_TO_DATE = LocalDate.of(2016, 11, 1);
@@ -86,13 +86,17 @@ public class PersonTest {
         assertThat(true, is(true));
     }
 
-    private boolean betweenDate(Date date, LocalDate from, LocalDate to){
+    private static boolean betweenDate(Date date, LocalDate from, LocalDate to){
         LocalDate target = toLocalDate(date);
         return target.isAfter(from) && target.isBefore(to);
     }
 
-    private LocalDate toLocalDate(Date date){
+    private static LocalDate toLocalDate(Date date){
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    private static Date createDate(int year, int month, int dayOfMonth){
+        return Date.from(LocalDate.of(year, month, dayOfMonth).atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
 }
